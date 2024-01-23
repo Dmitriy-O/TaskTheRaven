@@ -1,5 +1,6 @@
 package org.byovsiannikov.tasktheraven.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -24,8 +25,6 @@ import java.util.Date;
 
 )
 public class CustomerEntity {
-    //todo validate
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +38,14 @@ public class CustomerEntity {
     @Size(min = 2, max = 50, message = "Full name must be within the bound of 2 to 50")
     private String fullName;
 
+
     @Size(min = 2, max = 100, message = "Email must be within the bound of 2 to 100")
     @Email(message = "Email should be valid")
-    @NotEmpty(message = "Value should not be empty")
     private String email;
 
 
-    @Size(min = 6, max = 14, message = "Email must be within the bound of 2 to 100")
-    @NotEmpty(message = "Value should not be empty")
-
+    @Column(nullable = true)
+    @Pattern(regexp = "[^\\+\\d{6,14}]?", message = "Phone pattern not valid")
     private String phone;
 
     private boolean isActive;
