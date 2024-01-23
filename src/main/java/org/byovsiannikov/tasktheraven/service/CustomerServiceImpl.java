@@ -1,6 +1,7 @@
 package org.byovsiannikov.tasktheraven.service;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.byovsiannikov.tasktheraven.entity.CustomerEntity;
 import org.byovsiannikov.tasktheraven.model.Customer;
@@ -54,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer readCustomerByID(Long id) {
-        CustomerEntity customerEntity = repository.findById(id).get();
+        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not found"));
         return Customer.builder()
                 .id(customerEntity.getId())
                 .fullName(customerEntity.getFullName())
@@ -66,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer updateCustomerByID(Long id, String fullName, String phone) {
 
-        CustomerEntity customerEntity = repository.findById(id).get();
+        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not found"));
 
         CustomerEntity customerForUpdate = CustomerEntity.builder()
                 .id(id)
@@ -87,8 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deleteCustomerByID(Long id) {
-//        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
-        CustomerEntity markAsDeleted =repository.findById(id).get();
+        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not found"));
         markAsDeleted.setActive(false);
         return "Marked as deleted";
     }

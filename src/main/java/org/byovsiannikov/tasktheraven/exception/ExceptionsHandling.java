@@ -23,10 +23,5 @@ public class ExceptionsHandling {
         });
         return handleInvalidMap;
     }
-    @ExceptionHandler(NoSuchElementException.class)
-    public String handleEntityNotFound(NoSuchElementException e) {
-       String errorResponse=e.getMessage();
-        return  errorResponse;
-    }
 
 }

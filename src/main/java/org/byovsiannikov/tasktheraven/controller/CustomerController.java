@@ -31,21 +31,33 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity<Customer> getCustomerByID( @PathVariable(name = "id") Long findId) {
-        Customer readCustomerByID = customerService.readCustomerByID(findId);
-        return ResponseEntity.ok(readCustomerByID);
+    public ResponseEntity<Object> getCustomerByID(@PathVariable(name = "id") Long findId) {
+        try {
+            Customer readCustomerByID = customerService.readCustomerByID(findId);
+            return ResponseEntity.ok(readCustomerByID);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Customer not found");
+        }
     }
 
     @PutMapping("/customers/{id}")
-    public ResponseEntity<Customer> updateCustomerByID(@Valid @PathVariable(name = "id") Long id, @RequestBody
+    public ResponseEntity<Object> updateCustomerByID(@Valid @PathVariable(name = "id") Long id, @RequestBody
     CustomerEntity customer) {
-        Customer updateCustomerByID = customerService.updateCustomerByID(id, customer.getFullName(), customer.getPhone());
-        return ResponseEntity.ok(updateCustomerByID);
+        try {
+            Customer updateCustomerByID = customerService.updateCustomerByID(id, customer.getFullName(), customer.getPhone());
+            return ResponseEntity.ok(updateCustomerByID);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Customer not found");
+        }
     }
 
     @DeleteMapping("/customers/{id}")
     public ResponseEntity<String> deleteCustomerByID(@PathVariable(name = "id") Long id) {
-        String deleteCustomerByID = customerService.deleteCustomerByID(id);
-        return ResponseEntity.ok(deleteCustomerByID);
+        try {
+            String deleteCustomerByID = customerService.deleteCustomerByID(id);
+            return ResponseEntity.ok(deleteCustomerByID);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Customer not found");
+        }
     }
 }
