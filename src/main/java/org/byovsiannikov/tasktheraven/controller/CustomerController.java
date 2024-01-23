@@ -1,5 +1,6 @@
 package org.byovsiannikov.tasktheraven.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.byovsiannikov.tasktheraven.entity.CustomerEntity;
@@ -18,7 +19,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/customers")
-    public ResponseEntity<Customer> createCustomer(@RequestBody @Valid CustomerEntity customerEntity) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody @Valid  CustomerEntity customerEntity) {
         Customer customer = customerService.createCustomer(customerEntity);
         return ResponseEntity.ok(customer);
     }
@@ -35,18 +36,18 @@ public class CustomerController {
         try {
             Customer readCustomerByID = customerService.readCustomerByID(findId);
             return ResponseEntity.ok(readCustomerByID);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body("Customer not found");
         }
     }
 
     @PutMapping("/customers/{id}")
-    public ResponseEntity<Object> updateCustomerByID(@Valid @PathVariable(name = "id") Long id, @RequestBody
+    public ResponseEntity<Object> updateCustomerByID( @PathVariable(name = "id") Long id, @Valid @RequestBody
     CustomerEntity customer) {
         try {
             Customer updateCustomerByID = customerService.updateCustomerByID(id, customer.getFullName(), customer.getPhone());
             return ResponseEntity.ok(updateCustomerByID);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body("Customer not found");
         }
     }
@@ -56,7 +57,7 @@ public class CustomerController {
         try {
             String deleteCustomerByID = customerService.deleteCustomerByID(id);
             return ResponseEntity.ok(deleteCustomerByID);
-        } catch (Exception e) {
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body("Customer not found");
         }
     }

@@ -2,6 +2,7 @@ package org.byovsiannikov.tasktheraven.service;
 
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.byovsiannikov.tasktheraven.entity.CustomerEntity;
 import org.byovsiannikov.tasktheraven.model.Customer;
@@ -65,7 +66,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateCustomerByID(Long id, String fullName, String phone) {
+    public Customer updateCustomerByID(
+            Long id, @Valid String fullName,@Valid String phone) {
 
         CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not found"));
 
