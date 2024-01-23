@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer updateCustomerByID(
-            Long id, @Valid String fullName,@Valid String phone) {
+            Long id,  String fullName, String phone) {
 
         CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not found"));
 
