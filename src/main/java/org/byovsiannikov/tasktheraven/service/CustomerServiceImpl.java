@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repository;
-
     @Override
     public Customer createCustomer(CustomerEntity customer) {
 
