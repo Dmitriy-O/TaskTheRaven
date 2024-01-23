@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
-public class ValidateHandling {
+public class ExceptionsHandling {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -22,6 +23,10 @@ public class ValidateHandling {
         });
         return handleInvalidMap;
     }
-
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleEntityNotFound(NoSuchElementException e) {
+       String errorResponse=e.getMessage();
+        return  errorResponse;
+    }
 
 }

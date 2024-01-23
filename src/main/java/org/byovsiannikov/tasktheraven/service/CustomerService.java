@@ -6,9 +6,9 @@ import org.byovsiannikov.tasktheraven.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    public Customer createCustomer(CustomerEntity customer);
-    public List<Customer> readAllCustomers();
-    public Customer readCustomerByID(Long id);
-    public Customer updateCustomerByID(Long id,String fullName,String phone);
-    public String deleteCustomerByID(Long id);
+     Customer createCustomer(CustomerEntity customer);
+     List<Customer> readAllCustomers();
+     Customer readCustomerByID(Long id);
+     Customer updateCustomerByID(Long id,String fullName,String phone);
+     String deleteCustomerByID(Long id);
 }

@@ -3,7 +3,6 @@ package org.byovsiannikov.tasktheraven.service;
 
 import lombok.RequiredArgsConstructor;
 import org.byovsiannikov.tasktheraven.entity.CustomerEntity;
-import org.byovsiannikov.tasktheraven.exception.EntityNotFound;
 import org.byovsiannikov.tasktheraven.model.Customer;
 import org.byovsiannikov.tasktheraven.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -56,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer readCustomerByID(Long id) {
-        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
+        CustomerEntity customerEntity = repository.findById(id).get();
         return Customer.builder()
                 .id(customerEntity.getId())
                 .fullName(customerEntity.getFullName())
@@ -68,9 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer updateCustomerByID(Long id, String fullName, String phone) {
 
-        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
-
-
+        CustomerEntity customerEntity = repository.findById(id).get();
 
         CustomerEntity customerForUpdate = CustomerEntity.builder()
                 .id(id)
@@ -91,7 +87,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deleteCustomerByID(Long id) {
-        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
+//        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
+        CustomerEntity markAsDeleted =repository.findById(id).get();
         markAsDeleted.setActive(false);
         return "Marked as deleted";
     }
