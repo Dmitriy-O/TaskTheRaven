@@ -21,6 +21,7 @@ import java.util.Date;
         name = "customer",
         uniqueConstraints =
         @UniqueConstraint(columnNames = "email")
+
 )
 public class CustomerEntity {
     //todo validate
@@ -29,25 +30,24 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @FutureOrPresent
+
     private BigInteger created;
-    @FutureOrPresent
 
     private BigInteger updated;
+
     @NotEmpty(message = "Value should not be empty")
     @Size(min = 2, max = 50, message = "Full name must be within the bound of 2 to 50")
     private String fullName;
 
     @Size(min = 2, max = 100, message = "Email must be within the bound of 2 to 100")
-
     @Email(message = "Email should be valid")
     @NotEmpty(message = "Value should not be empty")
     private String email;
 
 
     @Size(min = 6, max = 14, message = "Email must be within the bound of 2 to 100")
-    @Digits()
     @NotEmpty(message = "Value should not be empty")
+
     private String phone;
 
     private boolean isActive;
