@@ -14,9 +14,9 @@ public class ValidateHandling {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exception){
-        Map<String,String>handleInvalidMap=new HashMap<>();
-        exception.getBindingResult().getFieldErrors().forEach(error->
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exception) {
+        Map<String, String> handleInvalidMap = new HashMap<>();
+        exception.getBindingResult().getFieldErrors().forEach(error ->
         {
             handleInvalidMap.put(error.getField(), error.getDefaultMessage());
         });
