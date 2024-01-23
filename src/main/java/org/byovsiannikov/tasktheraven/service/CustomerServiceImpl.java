@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer readCustomerByID(Long id) {
-        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFound("User not found"));
+        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
         return Customer.builder()
                 .id(customerEntity.getId())
                 .fullName(customerEntity.getFullName())
@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer updateCustomerByID(Long id, String fullName, String phone) {
 
-        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFound("User not found"));
+        CustomerEntity customerEntity = repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
 
 
 
@@ -92,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deleteCustomerByID(Long id) {
-        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFound("User not found"));
+        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFound("Customer not found"));
         markAsDeleted.setActive(false);
         return "Marked as deleted";
     }
