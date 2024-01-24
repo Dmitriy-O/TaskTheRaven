@@ -1,5 +1,6 @@
 package org.byovsiannikov.tasktheraven.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,6 +21,12 @@ public class ExceptionsHandling {
         {
             handleInvalidMap.put(error.getField(), error.getDefaultMessage());
         });
+        return handleInvalidMap;
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EntityNotFoundException.class)
+    public String handleNotFoundException() {
+          String handleInvalidMap = "Customer not found ";
         return handleInvalidMap;
     }
 

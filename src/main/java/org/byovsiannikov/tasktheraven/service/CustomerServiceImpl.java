@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String deleteCustomerByID(Long id) {
-        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not found"));
+        CustomerEntity markAsDeleted =repository.findById(id).orElseThrow(()->new EntityNotFoundException("Customer not  found"));
         markAsDeleted.setActive(false);
         return "Marked as deleted";
     }

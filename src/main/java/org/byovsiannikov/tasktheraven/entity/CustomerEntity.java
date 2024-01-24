@@ -45,7 +45,7 @@ public class CustomerEntity {
 
 
     @Column(nullable = true)
-    @Pattern(regexp = "[^\\+\\d{6,14}]?", message = "Phone pattern not valid")
+    @Pattern(regexp = "(^\\+\\d{6,14})?", message = "Phone pattern not valid")
     private String phone;
 
     private boolean isActive;

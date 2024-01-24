@@ -32,33 +32,21 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity<Object> getCustomerByID(@PathVariable(name = "id") Long findId) {
-        try {
+    public ResponseEntity<Object> getCustomerByID(@PathVariable(name = "id") Long findId)  throws EntityNotFoundException{
             Customer readCustomerByID = customerService.readCustomerByID(findId);
             return ResponseEntity.ok(readCustomerByID);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body("Customer not found");
-        }
     }
 
     @PutMapping("/customers/{id}")
     public ResponseEntity<Object> updateCustomerByID( @PathVariable(name = "id") Long id, @Valid @RequestBody
-    CustomerEntity customer) {
-        try {
+    CustomerEntity customer) throws EntityNotFoundException {
             Customer updateCustomerByID = customerService.updateCustomerByID(id, customer.getFullName(), customer.getPhone());
             return ResponseEntity.ok(updateCustomerByID);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body("Customer not found");
-        }
     }
 
     @DeleteMapping("/customers/{id}")
-    public ResponseEntity<String> deleteCustomerByID(@PathVariable(name = "id") Long id) {
-        try {
+    public ResponseEntity<String> deleteCustomerByID(@PathVariable(name = "id") Long id) throws EntityNotFoundException {
             String deleteCustomerByID = customerService.deleteCustomerByID(id);
             return ResponseEntity.ok(deleteCustomerByID);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body("Customer not found");
-        }
     }
 }
